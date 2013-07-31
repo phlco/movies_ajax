@@ -36,7 +36,7 @@ $(function(){
         $('#display').append('<p></p>')
         $('#display').append('<div class="search-results" id="'+ result.imdbID+'"></div>')
         $('div').last().text("Title: " + result.Title)
-        $('div').last().append('<div id="' + input+ '"></div>')
+        $('div').last().append('<div id="' + input + '"></div>')
         $('div').last().text(" Year: " + result.Year);
         $('div').last().append('<p></p>')
       })
