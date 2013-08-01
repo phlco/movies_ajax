@@ -37,9 +37,16 @@ $(function(){
         //append the movie results within an element to #main and display it
         //onto the html
         $('#main').append('<p>' + movieTitle + '</p>');
-        // New click event on the movie title
 
       }
+       // New click event on the movie title, console.log a message to test the event
+      $('#main').click(function(){
+        //make the click show more info about the movie
+        // $('#main').append('<p>' + movie.Search[i].Year + '</p>');
+        console.log("hi");
+
+
+      })
     });
   });
 
