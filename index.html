@@ -1,8 +1,18 @@
+<!doctype html>
 <html>
-<head>
-  <title>movies db</title>
-</head>
-<body>
-
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>AJAX Moviez</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" src="movies.js"></script>
+  </head>
+  <body>
+    <h1>Moviez</h1>
+    <form action="/" method="get">
+      <input id="movie" type="text" placeholder="Enter a movie" autofocus>
+      <button id="search" value="search">Search</button>
+      <button id="lucky" value="lucky">I'm Feeling Lucky</button>
+    </form>
+    <div id="display"></div>
+  </body>
 </html>
