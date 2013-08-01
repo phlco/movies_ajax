@@ -1,4 +1,8 @@
+//variable for results in array for search
 var results;
+//variable for first result of results array for i'm feeling lucky
+var result;
+
 
 $(function() {
   var mainDiv = $("<div>");
@@ -11,54 +15,68 @@ $(function() {
     return false;
   });
 
-  $('#search').click(function(event) {
-    $("div").empty();
-    var searchKeywords = $('input').val();
-    var searchUrl = 'http://www.omdbapi.com/?s=' + searchKeywords;
-
-    $.ajax({
-      type: 'get',
-      url: searchUrl,
-      dataType: 'json'
-    }).done(function(data){
-      results = data;
-      for (var i = 0; i < results.Search.length; i++) {
-        var result = $("<div>");
-        result.attr("class", "movie");
-        result.attr("id", i);
-        result.text(results.Search[i].Title);
-        $('#main').append(result);
-      }
-      console.log(data);
-    });
+  $('#search').click(function() {
+    getSearchResults();
     movieClick();
   });
 
   $('#lucky').click(function(event) {
-    $("div").empty();
-    var luckyKeywords = $('input').val();
-    var luckyUrl = 'http://www.omdbapi.com/?t=' + luckyKeywords;
-    var result;
-
-    $.ajax({
-      type: 'get',
-      url: luckyUrl,
-      dataType: 'json'
-    }).done(function(data){
-      results = $('<div>');
-      results.attr("class", "movie");
-      results.attr("id", 0);
-      results.text(data.Title);
-      $("#main").append(results);
-      console.log(data);
-    });
+    getLuckyResult();
   });
 
 });
-var test;
+
+var searchKeywords;
+var searchUrl;
+
+function getInput() {
+  $("div").empty();
+  searchKeywords = $('input').val();
+  searchUrl = 'http://www.omdbapi.com/?s=' + searchKeywords;
+}
+
+function getSearchResults() {
+  getInput();
+
+  $.ajax({
+    type: 'get',
+    url: searchUrl,
+    dataType: 'json'
+  }).done(function(data){
+    results = data;
+    for (var i = 0; i < results.Search.length; i++) {
+      var result = $("<div>");
+      result.attr("class", "movie");
+      result.attr("id", i);
+      result.text(results.Search[i].Title);
+      $('#main').append(result);
+    }
+    console.log(data);
+  });
+}
+
+function getLuckyResult() {
+  getInput();
+
+  $.ajax({
+    type: 'get',
+    url: searchUrl,
+    dataType: 'json'
+  }).done(function(data){
+    results = data;
+    result = $('<div>');
+    result.attr("class", "movie");
+    result.attr("id", 0);
+    result.text(results.Search[0].Title);
+    $("#main").append(result);
+    console.log(data);
+  });
+}
+
+var numberOfClicks = 0;
+
 function movieClick() {
   $(".movie").click(function() {
-    test = $(this);
-    console.log(test);
+    numberOfClicks++;
   });
 }
