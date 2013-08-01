@@ -9,7 +9,7 @@ $(function(){
     return false;
   });
 
-  // Regular results Multiple Movies
+  //Regular results Multiple Movies
   $('#regular').click(function() {
     //create a div tag that the movie results can be appended to
     $('body').append('<div id="main"></div>');
@@ -37,6 +37,8 @@ $(function(){
         //append the movie results within an element to #main and display it
         //onto the html
         $('#main').append('<p>' + movieTitle + '</p>');
+        // New click event on the movie title
+
       }
     });
   });
@@ -55,7 +57,7 @@ $(function(){
     var movie = $('input').val();
     console.log(movie);
     // the base_url should be for a single search
-    var baseUrl = "http://www.omdbapi.com/?t="
+    var baseUrl = "http://www.omdbapi.com/?s="
     console.log(baseUrl);
     // the url should be the baseUrl + movie
     var url = baseUrl + movie;
@@ -68,15 +70,16 @@ $(function(){
       dataType: 'json'
     }).done(function(movie){
     // when the movie object is returned we should display it.
-      console.log("results:", movie);
+      console.log(movie.Search[0]);
       // get #results
       var results = $('#results');
       console.log(results);
       // display the movie as html
-      var movieHtml = '<p>'+movie.Title+ ', ' + movie.Year + '</p>'
+      var movieHtml = '<p>'+movie.Search[0].Title+ ', ' + movie.Search[0].Year + '</p>'
       console.log(movieHtml);
       // append the movie html to #results
       results.append(movieHtml);
+
     });
   });
 
