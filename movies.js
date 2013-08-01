@@ -3,24 +3,25 @@ var results;
 //variable for first result of results array for i'm feeling lucky
 var result;
 
+var numberOfClicks = 0;
 
 $(function() {
   var mainDiv = $("<div>");
   mainDiv.attr("id", "main");
   $("body").append(mainDiv);
 
-  $('form').submit(function(event) {
+  $("form").submit(function(event) {
     console.log(event);
-    console.log('form button was clicked');
+    console.log("form button was clicked");
     return false;
   });
 
-  $('#search').click(function() {
+  $("#search").click(function() {
     getSearchResults();
     movieClick();
   });
 
-  $('#lucky').click(function(event) {
+  $("#lucky").click(function(event) {
     getLuckyResult();
   });
 
@@ -31,17 +32,17 @@ var searchUrl;
 
 function getInput() {
   $("div").empty();
-  searchKeywords = $('input').val();
-  searchUrl = 'http://www.omdbapi.com/?s=' + searchKeywords;
+  searchKeywords = $("input").val();
+  searchUrl = "http://www.omdbapi.com/?s=" + searchKeywords;
 }
 
 function getSearchResults() {
   getInput();
 
   $.ajax({
-    type: 'get',
+    type: "get",
     url: searchUrl,
-    dataType: 'json'
+    dataType: "json"
   }).done(function(data){
     results = data;
     for (var i = 0; i < results.Search.length; i++) {
@@ -49,7 +50,7 @@ function getSearchResults() {
       result.attr("class", "movie");
       result.attr("id", i);
       result.text(results.Search[i].Title);
-      $('#main').append(result);
+      $("#main").append(result);
     }
     console.log(data);
   });
@@ -59,12 +60,12 @@ function getLuckyResult() {
   getInput();
 
   $.ajax({
-    type: 'get',
+    type: "get",
     url: searchUrl,
-    dataType: 'json'
+    dataType: "json"
   }).done(function(data){
     results = data;
-    result = $('<div>');
+    result = $("<div>");
     result.attr("class", "movie");
     result.attr("id", 0);
     result.text(results.Search[0].Title);
@@ -73,10 +74,9 @@ function getLuckyResult() {
   });
 }
 
-var numberOfClicks = 0;
-
 function movieClick() {
   $(".movie").click(function() {
     numberOfClicks++;
+    console.log("index: " + $(this));
   });
 }
