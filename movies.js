@@ -48,9 +48,10 @@ function getLuckyResult() {
     results = data;
     result = $("<div>");
     result.attr("class", "movie");
-    result.attr("id", 0);
+    result.attr("id", results.Search[0].imdbID);
     result.text(results.Search[0].Title);
     $("#main").append(result);
+    addMovieClickEventListeners();
     console.log(data);
   });
 }
@@ -70,9 +71,7 @@ function addMovieClickEventListeners() {
       console.log(data);
       movieDetails = $("<div>");
       movieDetails.attr("class", "details");
-      console.log(movie.Year);
       movieDetails.text(movie.Director + " | " + movie.Year + " | " + movie.Rated);
-      console.log(movieDetails.text);
       movieTitle.append(movieDetails);
     });
   });
