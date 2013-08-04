@@ -2,33 +2,10 @@
 var results;
 //variable for first result of results array for i'm feeling lucky
 var result;
-
-var numberOfClicks = 0;
-
-$(function() {
-  var mainDiv = $("<div>");
-  mainDiv.attr("id", "main");
-  $("body").append(mainDiv);
-
-  $("form").submit(function(event) {
-    console.log(event);
-    console.log("form button was clicked");
-    return false;
-  });
-
-  $("#search").click(function() {
-    getSearchResults();
-    movieClick();
-  });
-
-  $("#lucky").click(function(event) {
-    getLuckyResult();
-  });
-
-});
-
 var searchKeywords;
 var searchUrl;
+var numberOfClicks = 0;
+var test;
 
 function getInput() {
   $("div").empty();
@@ -43,7 +20,7 @@ function getSearchResults() {
     type: "get",
     url: searchUrl,
     dataType: "json"
-  }).done(function(data){
+  }).done(function (data) {
     results = data;
     for (var i = 0; i < results.Search.length; i++) {
       var result = $("<div>");
@@ -52,6 +29,7 @@ function getSearchResults() {
       result.text(results.Search[i].Title);
       $("#main").append(result);
     }
+    addMovieClickEventListeners();
     console.log(data);
   });
 }
@@ -63,7 +41,7 @@ function getLuckyResult() {
     type: "get",
     url: searchUrl,
     dataType: "json"
-  }).done(function(data){
+  }).done(function (data){
     results = data;
     result = $("<div>");
     result.attr("class", "movie");
@@ -74,9 +52,32 @@ function getLuckyResult() {
   });
 }
 
-function movieClick() {
-  $(".movie").click(function() {
+function addMovieClickEventListeners() {
+  $(".movie").click(function () {
     numberOfClicks++;
-    console.log("index: " + $(this));
+    test = $(this);
+    console.log($(this).text());
   });
 }
+
+$(function () {
+  var mainDiv = $("<div>");
+  mainDiv.attr("id", "main");
+  $("body").append(mainDiv);
+
+  $("form").submit(function (event) {
+    console.log(event);
+    console.log("form button was clicked");
+    return false;
+  });
+
+  $("#search").click(function () {
+    getSearchResults();
+  });
+
+  $("#lucky").click(function (event) {
+    getLuckyResult();
+  });
+
+});
+
