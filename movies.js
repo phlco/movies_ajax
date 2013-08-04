@@ -2,10 +2,13 @@
 var results;
 //variable for first result of results array for i'm feeling lucky
 var result;
+
 var searchKeywords;
 var searchUrl;
-var numberOfClicks = 0;
-var test;
+
+var movieTitle;
+var movieID;
+var movieUrl;
 
 function getInput() {
   $("div").empty();
@@ -25,7 +28,7 @@ function getSearchResults() {
     for (var i = 0; i < results.Search.length; i++) {
       var result = $("<div>");
       result.attr("class", "movie");
-      result.attr("id", i);
+      result.attr("id", results.Search[i].imdbID);
       result.text(results.Search[i].Title);
       $("#main").append(result);
     }
@@ -54,9 +57,24 @@ function getLuckyResult() {
 
 function addMovieClickEventListeners() {
   $(".movie").click(function () {
-    numberOfClicks++;
-    test = $(this);
-    console.log($(this).text());
+    movieTitle = $(this);
+    movieID = $(this).attr("id");
+    movieUrl = "http://www.omdbapi.com/?i=" + movieID;
+
+    $.ajax({
+      type: "get",
+      url: movieUrl,
+      dataType: "json"
+    }).done(function (data){
+      movie = data;
+      console.log(data);
+      movieDetails = $("<div>");
+      movieDetails.attr("class", "details");
+      console.log(movie.Year);
+      movieDetails.text(movie.Director + " | " + movie.Year + " | " + movie.Rated);
+      console.log(movieDetails.text);
+      movieTitle.append(movieDetails);
+    });
   });
 }
 
